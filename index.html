@@ -20,7 +20,7 @@
     <h1>Toon Time</h1>
 
     <!-- Movies will get dumped here -->
-    <div id="cartoon-view"></div>
+    <div id="buttons-view"></div>
 
     <form id="cartoon-form">
       <label for="cartoon-input">Add a Toon</label>
@@ -34,12 +34,33 @@
      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
       // Initial array of movies
-      var cartoons = ["Bugs Bunny", "Power Puff Girls", "The Tick", "Pinky and the Brain"];
+      var cartoons = [];
+
+      function displayInfo() {
 
       var cartoons = $(this).attr("data-name");
-      var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=Kwf7IGo4HQBNv9LFX15yx7tLInC1YXS7&q=";
+      var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=Kwf7IGo4HQBNv9LFX15yx7tLInC1YXS7&q=" + cartoon + "key=Kwf7IGo4HQBNv9LFX15yx7tLInC1YXS7";
 
-      //+ cartoon + "key=Kwf7IGo4HQBNv9LFX15yx7tLInC1YXS7";
+      $.ajax({
+      	url: queryURL,
+      	method: "GET"
+      }).done(function(response)) {
+
+      	var cartoonDiv = $("<div class='cartoon'>");
+
+      	var rating = response.Rated;
+
+      	var pOne = $("<p>").text("Rating: " + rating);
+      	
+        cartoonDiv.append(pOne);
+
+        var image = $("<img>").attr("src", imgURL);
+
+        cartoonDiv.append(image);
+
+       }
+
+     }
 
       // Function for displaying movie data
       function renderButtons() {
@@ -75,11 +96,11 @@
 
       // Write code to grab the text the user types into the input field
 
-          var movie = $("#cartoon-input").val().trim();
+          var toon = $("#cartoon-input").val().trim();
  
         // Write code to add the new movie into the movies array
 
-          cartoons.push(cartoon);
+          toon.push(toon);
 
         // The renderButtons function is called, rendering the list of movie buttons
         renderButtons();
