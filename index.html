@@ -1,1 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="utf-8">
+  <title>Toon Time</title>
+  <style type="text/css">
+    button,
+    div,
+    form,
+    input {
+      margin: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Toon Time</h1>
+
+    <!-- Movies will get dumped here -->
+    <div id="cartoon-view"></div>
+
+    <form id="cartoon-form">
+      <label for="cartoon-input">Add a Toon</label>
+      <input type="text" id="cartoon-input">
+      <br>
+
+      <!-- Button triggers new movie to be added -->
+      <input id="add-cartoon" type="submit" value="My Favorite Character">
+    </form>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      // Initial array of movies
+      var cartoons = ["Bugs Bunny", "Power Puff Girls", "The Tick", "Pinky and the Brain"];
+
+      var cartoons = $(this).attr("data-name");
+      var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=Kwf7IGo4HQBNv9LFX15yx7tLInC1YXS7&q=";
+
+      //+ cartoon + "key=Kwf7IGo4HQBNv9LFX15yx7tLInC1YXS7";
+
+      // Function for displaying movie data
+      function renderButtons() {
+
+        $("#cartoon-view").empty();
+
+        // Delete the content inside the movies-view div prior to adding new movies
+        // (this is necessary otherwise you will have repeat buttons)
+
+        // Loop through the array of movies, then generate buttons for each movie in the array
+        for (var i=0; i < cartoons.length; i++) {
+
+          var a = $("<button>");
+
+          a.addClass("cartoon");
+
+          a.attr("data-name", cartoons[i]);
+
+          a.text(cartoons[i]);
+
+          $("#cartoons-view").append(a);
+
+        }
+
+      }
+
+      // This function handles events where the add movie button is clicked
+      $("#add-cartoon").on("click", function(event) {
+        // event.preventDefault() prevents submit button from trying to send a form.
+        // Using a submit button instead of a regular button allows the user to hit
+        // "Enter" instead of clicking the button if desired
+        event.preventDefault();
+
+      // Write code to grab the text the user types into the input field
+
+          var movie = $("#cartoon-input").val().trim();
+ 
+        // Write code to add the new movie into the movies array
+
+          cartoons.push(cartoon);
+
+        // The renderButtons function is called, rendering the list of movie buttons
+        renderButtons();
+      });
+
+      // Calling the renderButtons function to display the initial list of movies
+      renderButtons();
+    </script>
+  </div>
+</body>
+
+</html>
